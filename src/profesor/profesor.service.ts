@@ -12,15 +12,13 @@ export class ProfesorService {
         private readonly profesorRepository: Repository<ProfesorEntity>
     ) { }
 
-    async crearProfesor(cedula: number, nombre: string, grupoInv: string, extension: number): Promise<ProfesorEntity> {
-        if (!grupos_investigacion.includes(grupoInv)) {
+    async create(profesor: ProfesorEntity): Promise<ProfesorEntity> {
+        if (!grupos_investigacion.includes(profesor.grupoInv)) {
             throw new BusinessLogicException('Grupo de Investigación no válido', BusinessError.PRECONDITION_FAILED);
         }
-
-        const profesor = this.profesorRepository.create({ cedula, nombre, grupoInv, extension });
-        return this.profesorRepository.save(profesor);
+        return await this.profesorRepository.save(profesor);
     }
-
+    
     async findById(id: number): Promise<ProfesorEntity> {
         const profesor: ProfesorEntity = await this.profesorRepository.findOne({where: {id}, relations: ["propuesta"] } );
         if (!profesor)
