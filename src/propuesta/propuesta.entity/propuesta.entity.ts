@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ProfesorEntity } from 'src/profesor/profesor.entity/profesor.entity';
+import { ProyectoEntity } from 'src/proyecto/proyecto.entity/proyecto.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class PropuestaEntity {
@@ -13,4 +15,11 @@ export class PropuestaEntity {
 
     @Column()
     palabra: string;
+
+    @OneToOne(() => ProyectoEntity, proyecto => proyecto.propuesta)
+    @JoinColumn()
+    proyecto: ProyectoEntity;
+
+    @ManyToOne(() => ProfesorEntity, profesor => profesor.propuesta)
+    profesor: ProfesorEntity;
 }

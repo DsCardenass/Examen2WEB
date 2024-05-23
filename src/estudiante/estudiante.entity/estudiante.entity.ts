@@ -1,16 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { ProyectoEntity } from 'src/proyecto/proyecto.entity/proyecto.entity';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class EstudianteEntity {
- @PrimaryGeneratedColumn('uuid')
- id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: number;
 
- @Column()
- nombre: string;
- 
- @Column()
- codigo: string;
- 
- @Column()
- creditos: number;
+    @Column()
+    nombre: string;
+
+    @Column()
+    codigo: string;
+
+    @Column()
+    creditos: number;
+
+    @OneToOne(() => ProyectoEntity, proyecto => proyecto.estudiante)
+    @JoinColumn()
+    proyecto: ProyectoEntity;
 }
