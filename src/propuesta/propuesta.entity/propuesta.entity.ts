@@ -20,6 +20,6 @@ export class PropuestaEntity {
     @JoinColumn()
     proyecto: ProyectoEntity;
 
-    @ManyToOne(() => ProfesorEntity, profesor => profesor.propuesta)
+    @ManyToOne(() => ProfesorEntity, profesor => profesor.propuestas)
     profesor: ProfesorEntity;
 }
